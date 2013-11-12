@@ -2,64 +2,93 @@ def show_all_file(filename)
 	File.open(filename,'r') do |handle|
 		handle.each_line do |line|
 			temp = line.chomp.split(",")
-			ssex =  (temp[3] == "0" ? "Man" : "Woman")
-			puts " #{temp[0].capitalize}   #{temp[1].capitalize}    #{ssex}"
+			ssex =  (temp[1] == "0" ? "Man" : "Woman")
+			puts " #{temp[0].capitalize}  #{ssex}"
 		end
 	end
 end
 
-def print_header()
+def print_header
     puts "The students of MK Academy:"
-    print " Name     Surname       Sex"
+    puts " Name       Sex"
+end
+
+def print_footer(students)
+    puts " students of MK Academy"
 end
 
 def input_student
-	puts "To finished just 3"
+	puts "To finished just click '0'"
 	students = []
 	
-	while $stdin.gets.chomp != "3" do
+  loop do
 		puts "Please enther the student name"
-	   name = $stdin.gets.chomp
-	puts "Please add the sex of the student"
-	ssex = $stdin.gets.chomp
+	  name = $stdin.gets.chomp
+	  break if name == '0'
+	  puts "Please add the sex of the student"
+	  ssex = $stdin.gets.chomp
+	  break if ssex == '0'
 		students << {:name => name,  :sex => ssex}
 	end
     students
-
-
 end
 
-def file_data_toArray(filename)
+def file_data_to_Array(filename)
 	students = []
-
+  
 	File.open(filename,'r') do |handle|
 		handle.each_line do |line|			
 			temp = line.chomp.split(",")
-			ssex =  (temp[3] == "0" ? "Man" : "Woman")
+			ssex =  (temp[1] == "0" ? "Man" : "Woman")
 			#students " #{temp[0]}   #{temp[1]}    #{ssex}"
-			students << {:name => temp[0].capitalize + ' ' + temp[1].capitalize, :sex => ssex}
+			students << {:name => temp[0].capitalize, :sex => ssex}
 		end
 	end
 	students
 end
-# here starts the code
-first, second = ARGV
-#puts first.chomp
-#choice = (first.chomp.is_a? Numeric ) ? first.chomp.to_i : 0
- case  Integer(first.chomp) #choice
- when 0 
- 	  puts " UPS you do smth wrong !!! "
- when 1
-		puts print_header 
-		puts show_all_file('students.csv')
-when 2
-	    students = file_data_toArray('students.csv')
-when 3 
-	puts input_student
-#puts students
-	   # puts "#{students[:name]}  (#{students[:sex]} cohort)"
-	
+
+def print_students(students)
+  print_header
+  students.each do |student|
+    puts student[:name] + "    " + student[:sex]
+	end
 end
 
-#puts show_all_file('students.csv')
-#puts file_data_toArray('students.csv')
+def students_by_name(filename)
+  puts "Students ordered by Name:" 
+  students_ord = file_data_to_Array(filename).sort_by{|name, sex| name[:name]}
+  print_students(students_ord)
+end
+
+def students_by_gender(filename)
+  puts "Students ordered by GENDER:" 
+  students_coh = file_data_toArray(filename).sort_by{|name, sex| sex}
+  print_students(students_coh)
+end
+
+def program_menu 
+    puts "If you want to see the list of the student:"
+    puts "ruby directory.rb students.csv OPTIONS:"
+    puts "   1 - List of students ordered by NAME "
+    puts "   2 - List of students ordered by GENDER"
+    puts "   3 - Add students"
+end
+
+# here starts the code
+#==============================================================
+first, second, third = ARGV
+
+choice = !ARGV[0] == false ? Integer(second.chomp) : 0
+
+case choice
+  when 0 
+    program_menu
+  when 1
+    filename = first.chomp
+    students_by_name(filename)
+  when 2
+    filename = first.chomp
+    students_by_gender(filename)
+  when 3 
+   print_students(input_student)
+end
