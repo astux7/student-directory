@@ -10,11 +10,16 @@ end
 
 def print_header
     puts "The students of MK Academy:"
-    puts " Name       Sex"
+    puts "-------------------------------------------"
+    puts "    Name                GENDER             "
+    puts "-------------------------------------------"
+
 end
 
 def print_footer(students)
-    puts " students of MK Academy"
+    all_students = students.size
+    puts "-------------------------------------------"
+    puts "#{all_students} students of MK Academy"
 end
 
 def input_student
@@ -22,7 +27,7 @@ def input_student
 	students = []
 	
   loop do
-		puts "Please enther the student name"
+    puts "Please enther the student name"
 	  name = $stdin.gets.chomp
 	  break if name == '0'
 	  puts "Please add the sex of the student"
@@ -52,6 +57,7 @@ def print_students(students)
   students.each do |student|
     puts student[:name] + "    " + student[:sex]
 	end
+  print_footer(students)
 end
 
 def students_by_name(filename)
@@ -62,7 +68,7 @@ end
 
 def students_by_gender(filename)
   puts "Students ordered by GENDER:" 
-  students_coh = file_data_toArray(filename).sort_by{|name, sex| sex}
+  students_coh = file_data_to_Array(filename).sort_by{|name, sex| sex}
   print_students(students_coh)
 end
 
