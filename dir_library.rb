@@ -2,8 +2,7 @@
 def interactive_menu()
 	program_menu
   loop do
-		choice = $stdin.gets.chomp.to_i
-    menu_choice(choice)
+    menu_choice($stdin.gets.chomp.to_i)
   end
 end
 
