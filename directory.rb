@@ -8,7 +8,7 @@ This program following features:
 + Saving this data to a file
 + Loading it from the file
 + Taking arguments from the command line
-Show information about a given student
++ Show information about a given student
 Add information related to a particular student (e.g. hobbies)
 Displaying aggregate info (statistics)
 
@@ -20,5 +20,5 @@ require './dir_library.rb'
 # here starts the code
 #==============================================================
 @filename = ARGV.first || "students.csv"
-@students = {}
+@students = []
 interactive_menu()
