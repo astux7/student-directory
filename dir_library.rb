@@ -9,9 +9,13 @@ def central_print(text,option,tag)
   puts text.center(option,tag)
 end
 
+def string_is_number(option)
+  option.match(/\A[+-]?\d+?(_?\d+)*(\.\d+e?\d*)?\Z/) == nil ? 7 : option.to_i
+end
+
 def menu_option_output_phrase
-  puts @program_phrases["menu_option"]
-  $stdin.gets.chomp.to_i
+  puts @program_phrases["menu_option"] 
+  string_is_number($stdin.gets.chomp)
 end
 
 def looping_via_menu

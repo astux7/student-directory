@@ -34,6 +34,7 @@ CENTER_TWO_LINES = 121
        4 - Find a student by Name\n
        5 - List of Students\n
        6 - Statistic about the Students\n
+       7 - Show menu\n
        8 - Clear the screan\n
        0 - Exit",
   "file_error" => "Sorry, file doesn't exist.",
